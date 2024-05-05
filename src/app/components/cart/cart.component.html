@@ -1,0 +1,150 @@
+<!-- Cart Section -->
+<section class="py-5 bg-light header">
+    <div class="container">
+        <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+            <div class="col-lg-6">
+                <h1 class="h2 text-uppercase mb-0">Cart</h1>
+            </div>
+            <div class="col-lg-6 text-lg-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-blend-lighten">
+                        <li class="breadcrumb-item"><a class="text-yellow-950" href="#">Home</a></li>
+                        <li class="breadcrumb-item active text-light" aria-current="page">Cart</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <!-- Cart Items -->
+                    <div class="table-responsive mb-4" *ngIf="cartItems.length > 0">
+                        <table class="table text-nowrap">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="border-0 p-3" scope="col"><strong class="text-sm text-uppercase">Product</strong></th>
+                                    <th class="border-0 p-3" scope="col"><strong class="text-sm text-uppercase">Price</strong></th>
+                                    <th class="border-0 p-3" scope="col"><strong class="text-sm text-uppercase">Quantity</strong></th>
+                                    <th class="border-0 p-3" scope="col"><strong class="text-sm text-uppercase">Total</strong></th>
+                                    <th class="border-0 p-3" scope="col"><strong class="text-sm text-uppercase"></strong></th>
+                                </tr>
+                            </thead>
+                            <tbody class="border-0">
+                                <tr *ngFor="let item of cartItems">
+                                    <th class="ps-0 py-3 border-light" scope="row">
+                                        <div class="d-flex align-items-center">
+                                            <!-- Replace anchor tag with router link -->
+                                            <div style="height: 90px; width:90px; overflow: hidden; text-align: center;">
+                                              <a class="reset-anchor d-block animsition-link" [routerLink]="['/products', item._id]" style="height: 100%;">
+                                                <img  src="assets/images/products/{{ item.productId.imageCover }}" alt="{{ item.productId.title }}" height="100%" />
+                                              </a>
+
+                                            </div>
+
+                                            <div class="ms-3">
+                                                <strong class="h6">
+                                                    <!-- Limit product title to 20 characters -->
+                                                    <ng-container *ngIf="item.productId.title.length <= 20; else shortenName">
+                                                        <!-- If product title is within limit, display as normal -->
+                                                        <a class="reset-anchor animsition-link" [routerLink]="['/products', item._id]">{{ item.productId.title }}</a>
+                                                    </ng-container>
+                                                    <ng-template #shortenName>
+                                                        <!-- If product title is longer, display first 20 characters with ellipsis and show full name on hover -->
+                                                        <a class="reset-anchor animsition-link" [routerLink]="['/products', item._id]" [title]="item.productId.title">{{ item.productId.title | slice:0:20 }}{{ item.productId.title.length > 20 ? '...' : '' }}</a>
+                                                    </ng-template>
+                                                </strong>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td class="p-3 align-middle border-light">
+                                        <p class="mb-0 small">{{ item.productId.price }}</p>
+                                    </td>
+                                    <td class="p-3 align-middle border-light">
+                                    <div class="quantity">
+                                        <button class="dec-btn p-0" (click)="decreaseQuantity(item.productId._id, item.quantity)">
+                                            <i class="fas fa-caret-left"></i>
+                                        </button>
+                                        <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" [(ngModel)]="item.quantity" />
+                                        <button class="inc-btn p-0"  (click)="increaseQuantity(item.productId._id , item.quantity)">
+                                            <i class="fas fa-caret-right"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="p-3 align-middle border-light">
+                                    <p class="mb-0 small">{{ item.quantity * item.productId.price }}</p>
+                                </td>
+                                <td class="p-0 align-middle border-light">
+                                    <button class="reset-anchor bg-transparent border-0" (click)="openConfirmationDialog(item.productId._id)">
+                                        <i class="fas fa-trash-alt text-muted"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty Cart Message -->
+                <div *ngIf="cartItems.length === 0">
+                    <p>Your cart is empty.</p>
+                </div>
+
+                <!-- CART NAV-->
+                <div class="bg-light px-4 py-3">
+                    <div class="row align-items-center text-center">
+                    <div class="col-md-6 mb-3 mb-md-0 text-md-start">
+                        <!-- Replace the anchor tag with routerLink -->
+                        <a class="btn btn-link p-0 text-dark btn-sm" [routerLink]="['/products']">
+                            <i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping
+                        </a>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <!-- Replace the anchor tag with routerLink -->
+                        <a class="btn btn-outline-dark btn-sm" [routerLink]="['/checkout']">
+                        Proceed to checkout
+                        <i class="fas fa-long-arrow-alt-right ms-2"></i>
+                        </a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ORDER TOTAL-->
+            <div class="col-lg-4">
+                <div class="card border-0 rounded-0 p-lg-4 bg-light">
+                    <div class="card-body">
+                        <h5 class="text-uppercase mb-4">Cart total</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex align-items-center justify-content-between">
+                                <!-- <strong class="text-uppercase small font-weight-bold">Subtotal</strong> -->
+                                <!-- <span class="text-muted small">${{ subtotal }}</span> -->
+                            </li>
+                            <li class="border-bottom my-2"></li>
+                            <li class="d-flex align-items-center justify-content-between mb-4">
+                                <strong class="text-uppercase small font-weight-bold">Total</strong>
+                                <span>${{ total }}</span>
+                            </li>
+                            <li>
+                                <form action="#">
+                                    <div class="input-group mb-0">
+                                        <input class="form-control" type="text" placeholder="Enter your coupon">
+                                        <button class="btn btn-dark btn-sm w-100" type="submit">
+                                            <i class="fas fa-gift me-2"></i>Apply coupon
+                                        </button>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

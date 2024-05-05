@@ -1,0 +1,31 @@
+<div class="container py-4 text-light mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12"> <!-- Adjusted to take full width -->
+            <div class="table-responsive">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>Total Order Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orders; let i = index" class="slide-right" style="--delay: {{ i * 0.3 }}s;">
+                            <td>{{ order._id }}</td>
+                            <td>{{ order.user }}</td>
+                            <td>${{ order.totalOrderPrice }}</td>
+                            <td>{{ order.status }}</td>
+                            <td>
+                                <button (click)="getOrderId(order._id)" class="btn btn-primary btn-sm mr-2">View Details</button>
+                                <button *ngIf="order.status === 'pending' || order.status === 'pending'" (click)="cancelOrder(order._id)" class="btn btn-danger btn-sm">Cancel Order</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+.header {
+  background-image: url('../../../assets/images/ecommerce_20shopping_20cart.webp'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+  background-size: cover;
+  /* background-position: center; */
+  /* position: relative; */
+  margin: 0 auto;
+  /* bottom: 20px; */
+  color: #fff; /* Adjust text color to ensure it's readable against the background */
+  width: 84%;
+}
+

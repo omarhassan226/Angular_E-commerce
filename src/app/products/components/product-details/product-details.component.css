@@ -1,0 +1,7 @@
+.cursor-pointer{
+  cursor: pointer;
+}
+ngb-rating{
+  font-size: 25px;
+  color: #FFC107;
+}

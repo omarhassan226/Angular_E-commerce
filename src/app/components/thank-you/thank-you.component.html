@@ -1,0 +1,36 @@
+<section class="thank-you-section">
+  <div class="container">
+    <div class="thank-you-content">
+      <h2>Thank You for Your Order!</h2>
+      <p>We appreciate your business and hope you enjoy your purchase.</p>
+      <div class="order-details">
+        <h3>Your Order Details:</h3>
+        <ul>
+          <!-- Iterate through each item in the order -->
+          <li *ngFor="let item of cartItems">
+            <div class="order-item">
+              <div class="row">
+                <div class="col-3">
+                  <img  src="assets/images/products/{{ item.productId.imageCover}}" alt="{{ item.productId.title }}" class="img-fluid">
+                </div>
+                <div class="col-9">
+                  <p><strong>{{ item.productId.title }}</strong></p>
+                  <p>Quantity: {{ item.quantity }}</p>
+                  <p>Price per item: ${{ item.productId.price }}</p>
+                  <p>Total: ${{ item.quantity * item.productId.price }}</p>
+                  <hr>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+            <p>Total: ${{ total }}</p>
+      <div class="back-to-home">
+        <a routerLink="/" class="btn btn-primary mr-3">Back to Home</a>
+        <!-- <a routerLink="/products" class="btn btn-primary">Back to Shop</a> -->
+      </div>
+    </div>
+  </div>
+</section>

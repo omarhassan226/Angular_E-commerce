@@ -1,0 +1,40 @@
+<div class="table-responsive mb-4">
+  <table class="table text-nowrap">
+    <thead class="bg-light">
+      <tr>
+        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">User</strong></th>
+        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">date</strong></th>
+        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">products</strong></th>
+        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">total price</strong></th>
+        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">status</strong></th>
+      </tr>
+    </thead>
+    <tbody class="border-0">
+      <tr *ngFor="let item of orders; index as i; ">
+        <th class="p-3 align-middle border-light">
+          <p class="mb-0 small">{{item.user.name}}</p>
+        </th>
+        <td class="p-3 align-middle border-light">
+          <p class="mb-0 small">{{item.createdAt}}</p>
+        </td>
+        <td class="p-3 align-middle border-light" >
+          <ul class="mb-0 small">
+            <li *ngFor="let product of item.cartItems">{{product._id}}</li>
+          </ul>
+        </td>
+        <td class="p-3 align-middle border-light">
+          <p class="mb-0 small">{{item.totalOrderPrice}}</p>
+        </td>
+        <td class="p-3 align-middle border-light">
+          <select name="status" class="form-select" id="status" [value]="item.status" (change)="changeStatus($event,item._id)" *ngIf="item.status!=='Canceled'">
+            <option value="pending">Pending</option>
+            <option value="accepted">Accepted</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <p class="mb-0 small" *ngIf="item.status=='Canceled'">{{item.status}}</p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!-- Add necessary meta tags, title, and CSS links -->
+  </head>
+  <body>
+    <!-- Profile Section -->
+    <section class="py-3 bg-light">
+      <div class="container">
+        <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+          <div class="col-lg-6">
+            <!-- User Image -->
+            <img
+              src="assets/images/users/{{
+                user.image
+                  ? user.image
+                  : 'blank-profile-picture-973460_640.webp'
+              }}"
+              alt="User Image"
+              class="img-fluid rounded-circle"
+              style="max-width: 150px"
+            />
+            <h1 class="h2 text-uppercase mb-0">Profile</h1>
+          </div>
+          <!-- Breadcrumb navigation -->
+          <div class="col-lg-6 text-lg-end">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                <li class="breadcrumb-item">
+                  <a class="text-dark" href="#">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Profile
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile Information -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <!-- Profile Information Card -->
+            <div class="card border-0 rounded-0 p-lg-4 bg-light">
+              <div class="card-body">
+                <h2 class="text-uppercase mb-4">User Information</h2>
+                <!-- Display user data -->
+                <div *ngIf="!editMode">
+                  <p><strong>Name:</strong> {{ user.name }}</p>
+                  <p><strong>Email:</strong> {{ user.email }}</p>
+                  <!-- Edit button -->
+                  <button
+                    (click)="toggleEditMode()"
+                    class="btn btn-primary edit"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    routerLink="./orders"
+                    class="btn btn-primary btn-slide order"
+                  >
+                    Orders
+                  </button>
+                </div>
+                <!-- Profile Information Form -->
+                <form *ngIf="editMode" (ngSubmit)="updateUserProfile()">
+                  <div class="mb-3">
+                    <label for="editName" class="form-label">Name:</label>
+                    <!-- Keep the user's name data -->
+                    <input
+                      [(ngModel)]="user.name"
+                      name="editName"
+                      type="text"
+                      class="form-control"
+                      id="editName"
+                      placeholder="Enter your name"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editEmail" class="form-label">Email:</label>
+                    <!-- Keep the user's email data -->
+                    <input
+                      [(ngModel)]="user.email"
+                      name="editEmail"
+                      type="email"
+                      class="form-control"
+                      id="editEmail"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+                  <!-- Save and Cancel buttons -->
+                  <div class="d-grid gap-2">
+                    <!-- You can keep the button labels as they are -->
+                    <button type="submit" class="save">Save</button>
+                    <button
+                      type="button"
+                      (click)="cancelUpdate()"
+                      class="cancel"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Include the footer section from your cart component HTML -->
+
+    <!-- Include necessary JavaScript libraries -->
+  </body>
+</html>

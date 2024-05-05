@@ -1,0 +1,23 @@
+<div>
+
+<app-nav-bar ></app-nav-bar>
+<div class="my-router-outlet">
+  <router-outlet></router-outlet>
+</div>
+
+
+  <!-- <app-test></app-test> -->
+
+
+  <ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#a6a5a7"
+    type="ball-climbing-dot"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+  >
+  <app-footer
+    *ngIf="activeRoute !== '/login' && activeRoute !== '/registerr'"
+  ></app-footer>
+</div>

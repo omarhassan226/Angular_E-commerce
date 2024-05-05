@@ -1,0 +1,163 @@
+<div
+  class="tab-pane"
+  id="reviews"
+  role="tabpanel"
+  aria-labelledby="reviews-tab"
+>
+  <div class="p-4 p-lg-5 bg-white">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="d-flex mb-3" *ngFor="let item of dataReview; let i = index">
+          <div class="flex-shrink-0">
+            <img
+              class="rounded-circle"
+              src="assets/images/users/{{
+                item.user.image
+                  ? item.user.image
+                  : 'blank-profile-picture-973460_640.webp'
+              }}"
+              alt=""
+              width="50"
+            />
+          </div>
+          <div class="ms-3 flex-shrink-1">
+            <h6 class="mb-0 text-uppercase">{{ item.user["name"] }}</h6>
+            <p class="small text-muted mb-0 text-uppercase">20 May 2020</p>
+            <ul class="list-inline mb-1 text-xs">
+              <li class="list-inline-item m-0"></li>
+              <ngb-rating
+                [max]="5"
+                [rate]="item.rating"
+                [readonly]="true"
+              ></ngb-rating>
+            </ul>
+            <p class="text-sm mb-0 text-muted mb-3">{{ item.reviewDetails }}</p>
+            <div
+              class="d-grid gap-2 d-md-block"
+              *ngIf="userId == item.user._id"
+            >
+              <button
+                class="btn btn-primary me-3"
+                type="button"
+                (click)="EditReview(item, item._id)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-danger"
+                type="button"
+                (click)="openConfirmationDialog(item._id)"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav aria-label="Page navigation example" *ngIf="totalPages != 1">
+  <ul class="pagination justify-content-center justify-content-lg-end">
+    <li
+      class="page-item mx-1"
+      *ngFor="let page of totalPagesArray; let i = index"
+      (click)="changePage(page)"
+      [class.active]="currentPage - 1 === page"
+    >
+      <a
+        class="page-link"
+        [routerLink]="['/product-detail', this.id]"
+        [queryParams]="{ page: currentPage }"
+      >
+        {{ page + 1 }}
+      </a>
+    </li>
+  </ul>
+</nav>
+<!-- <li class="nav-item nav-link text-uppercase cursor-pointer active"
+ id="description-tab"
+data-bs-toggle="tab" role="tab" aria-controls="description"
+aria-selected="true">Add Comment</li> -->
+
+<!-- <app-add-review></app-add-review>
+ -->
+<button type="button" class="btn btn-primary" (click)="add()">
+  Add Review
+</button>
+
+<!-- Modal -->
+<div class="modal block" #exampleModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Review</h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <form
+        [formGroup]="myForm"
+        (ngSubmit)="addReview ? onSubmit(myForm) : onupdata(myForm)"
+      >
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="review" class="form-label">Review</label>
+
+            <!-- "myForm.controls['review'].errors?.['pattern'] -->
+            <input
+              type="text"
+              class="form-control"
+              id="review"
+              aria-describedby="emailHelp"
+              formControlName="review"
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                myForm.get('review')?.invalid &&
+                (myForm.get('review')?.dirty || myForm.get('review')?.touched)
+              "
+            >
+              Please provide a valid Review
+            </div>
+          </div>
+          <div class="mb-3">
+            <ngb-rating
+              *ngIf="addReview"
+              formControlName="ratingsAverage"
+              id="rating"
+              [max]="5"
+            >
+            </ngb-rating>
+          </div>
+
+          <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="myForm.invalid"
+            (click)="closeModal()"
+          >
+            {{ addReview ? "Add Review" : "Update Review" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Button trigger modal -->

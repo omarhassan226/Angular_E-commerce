@@ -1,0 +1,4 @@
+.my-router-outlet {
+  /* reduce the height of header and footer(170px) as an example*/
+  min-height: calc(100vh - 330px);
+}

@@ -1,0 +1,176 @@
+<!-- <div class="flex justify-center items-center h-screen bg-black">
+  <div
+    class="max-w-md w-full p-8 bg-white shadow-md rounded-lg transform transition-all duration-300 hover:scale-105"
+  >
+    <h1 class="text-3xl font-bold mb-6 text-center">Login</h1>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4 relative">
+        <input
+          type="text"
+          placeholder="Email"
+          formControlName="email"
+          class="w-full px-3 py-2 border rounded-md bg-gray-100 focus:outline-none focus:border-blue-500 transition duration-500 ease-in-out transform hover:scale-105"
+        />
+        <div
+          *ngIf="
+            contactForm.get('email')?.touched &&
+            contactForm.get('email')?.errors
+          "
+          class="error"
+        >
+          <div *ngIf="contactForm.get('email')?.errors?.['required']">
+            E-mail is Required
+          </div>
+          <div *ngIf="contactForm.get('email')?.errors?.['pattern']">
+            Email should be example&#64;ex.ex
+          </div>
+        </div>
+      </div>
+      <div class="mb-4 relative">
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          class="w-full px-3 py-2 border rounded-md bg-gray-100 focus:outline-none focus:border-blue-500 transition duration-500 ease-in-out transform hover:scale-105"
+        />
+        <div *ngIf="!validated" class="error">invalid email or passowrd</div>
+        <div
+          *ngIf="
+            contactForm.get('password')?.errors &&
+            contactForm.get('password')?.touched
+          "
+          class="error"
+        >
+          <div *ngIf="contactForm.get('password')?.errors?.['required']">
+            password is requird
+          </div>
+
+          <div *ngIf="contactForm.get('password')?.errors?.[ 'minlength' ]">
+            Min length is
+            {{
+              contactForm.get("password")?.errors?.["minlength"]["requiredLength"]
+
+            }}But you enter
+            {{
+              contactForm.get("password")?.errors?.["minlength"]["actualLength"]
+            }}
+          </div>
+        </div>
+        <div
+          *ngIf="
+            contactForm.get('password')?.invalid &&
+            contactForm.get('password')?.touched
+          "
+          class="error"
+        ></div>
+      </div>
+      <div class="mb-4">
+        <button
+          type="submit"
+          class="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition duration-300"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
+</div> -->
+<div class="container mt-5">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-6">
+      <div class="card p-4 shadow">
+        <h2 class="mb-4">Sign in</h2>
+        <p class="text-secondary fs-6">
+          Welcome back to Boutique! Enter your email to get started.
+        </p>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <input
+              type="email"
+              placeholder="Email"
+              formControlName="email"
+              id="email"
+              class="form-control"
+            />
+            <div
+              *ngIf="
+                contactForm.get('email')?.touched &&
+                contactForm.get('email')?.errors
+              "
+              class="text-danger"
+            >
+              <p *ngIf="contactForm.get('email')?.getError('required')">
+                Email is required
+              </p>
+              <p *ngIf="contactForm.get('email')?.getError('pattern')">
+                Email must be like example&#64;info.com
+              </p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+              id="password"
+              class="form-control"
+            />
+            <div
+              *ngIf="
+                contactForm.get('password')?.touched &&
+                contactForm.get('password')?.errors
+              "
+              class="text-danger"
+            >
+              <p *ngIf="contactForm.get('password')?.getError('required')">
+                Password is required
+              </p>
+              <p *ngIf="contactForm.get('password')?.getError('minlength')">
+                Password min length is 8 Characters
+              </p>
+              <p *ngIf="contactForm.get('password')?.getError('maxlength')">
+                Password max length is 20 Characters
+              </p>
+              <p *ngIf="contactForm.get('password')?.getError('pattern')">
+                Password must include at least one uppercase letter, one
+                lowercase letter, one number and one special character
+              </p>
+            </div>
+          </div>
+          <p *ngIf="invalid" class="text-danger">invalid email or password</p>
+
+          <div class="mb-3 d-flex align-items-center justify-content-between">
+            <div class="form-check">
+              <input
+                type="checkbox"
+                name="Remember"
+                id="Remember"
+                class="form-check-input"
+              />
+              <label for="Remember" class="form-check-label">Remember me</label>
+            </div>
+            <div>
+              <p class="text-center m-0 fs-6">
+                Forgot password?
+                <span class="text-main" role="button" (click)="openResetComp()"
+                  >Reset It</span
+                >
+              </p>
+            </div>
+          </div>
+          <button class="btn btn-primary w-100" [disabled]="!contactForm.valid">
+            Sign In
+          </button>
+        </form>
+        <div>
+          <p class="text-center mt-4 fs-6 text-secondary">
+            Don’t have an account?
+            <span class="text-main" (click)="openRegPage()" role="button"
+              >Sign Up</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

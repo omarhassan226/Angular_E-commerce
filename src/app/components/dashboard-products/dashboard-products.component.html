@@ -1,0 +1,83 @@
+<div class="loader" *ngIf="loading"></div>
+<div class="table-responsive mb-4" *ngIf="!loading">
+  <button [routerLink]="'./add'" class="btn btn-dark mb-3">Add product</button>
+  <table class="table text-nowrap">
+    <thead class="bg-light">
+      <tr>
+        <th class="border-0 p-3" scope="col">
+          <strong class="text-sm text-uppercase">image</strong>
+        </th>
+        <th class="border-0 p-3" scope="col">
+          <strong class="text-sm text-uppercase">title</strong>
+        </th>
+        <th class="border-0 p-3" scope="col">
+          <strong class="text-sm text-uppercase">details</strong>
+        </th>
+        <th class="border-0 p-3" scope="col">
+          <strong class="text-sm text-uppercase">price</strong>
+        </th>
+        <th class="border-0 p-3" scope="col">
+          <strong class="text-sm text-uppercase"></strong>
+        </th>
+        <th class="border-0 p-3" scope="col">
+          <strong class="text-sm text-uppercase"></strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="border-0">
+      <tr *ngFor="let item of products; index as i">
+        <th class="ps-0 py-3 border-light" scope="row">
+          <div class="d-flex align-items-center">
+            <img
+              src="assets/images/products/{{ item.imageCover }}"
+              alt="..."
+              width="70"
+            />
+          </div>
+        </th>
+        <td class="p-3 align-middle border-light text-wrap">
+          <p class="mb-0 small">{{ item.title }}</p>
+        </td>
+        <td class="p-3 align-middle text-wrap border-light">
+          <ul class="mb-0 small">
+            <li>{{ item.description }}</li>
+          </ul>
+        </td>
+        <td class="p-3 align-middle border-light">
+          <p class="mb-0 small">{{ item.price }}</p>
+        </td>
+        <td class="p-0 align-middle border-light">
+          <button
+            class="reset-anchor bg-transparent border-0"
+            (click)="openConfirmationDialog(item._id)"
+          >
+            <i class="fas fa-trash-alt text-muted"></i>
+          </button>
+        </td>
+        <td class="p-3 align-middle border-light">
+          <a [routerLink]="'./edit/' + item._id"
+            ><i class="fas fa-pen-to-square small text-muted"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center justify-content-lg-end">
+      <li
+        class="page-item mx-1"
+        *ngFor="let page of totalPagesArray; let i = index"
+        (click)="changePage(page)"
+        [class.active]="currentPage - 1 === page"
+      >
+        <a
+          class="page-link"
+          [routerLink]="['/dashboard/products']"
+          [queryParams]="{ page: currentPage }"
+        >
+          {{ page + 1 }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

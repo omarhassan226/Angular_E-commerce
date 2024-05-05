@@ -1,0 +1,115 @@
+<!-- Checkout Section -->
+<section class="checkout-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Shipping Address -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="card-title">Shipping Address</h4>
+            <form [formGroup]="checkoutForm" (ngSubmit)="placeOrder()">
+              <!-- Full Name -->
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" formControlName="fullName">
+                <div *ngIf="checkoutForm?.get('fullName')?.invalid && (checkoutForm?.get('fullName')?.dirty || checkoutForm?.get('fullName')?.touched)" class="invalid-feedback">
+                  <div *ngIf="checkoutForm?.get('fullName')?.hasError('required')">Full Name is required</div>
+                  <div *ngIf="checkoutForm?.get('fullName')?.hasError('pattern')">Please enter a valid name (at least 6 characters, letters and numbers only)</div>
+                </div>
+              </div>
+              <!-- Phone -->
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" formControlName="phone">
+                <div *ngIf="checkoutForm?.get('phone')?.invalid && (checkoutForm?.get('phone')?.dirty || checkoutForm?.get('phone')?.touched)" class="invalid-feedback">
+                  <div *ngIf="checkoutForm?.get('phone')?.hasError('required')">Phone number is required</div>
+                  <div *ngIf="checkoutForm?.get('phone')?.hasError('pattern')">Please enter a valid phone number (11 digits)</div>
+                </div>
+              </div>
+              <!-- Street Address -->
+              <div class="mb-3">
+                <label for="streetAddress" class="form-label">Street Address</label>
+                <input type="text" class="form-control" id="streetAddress" placeholder="Enter your street address" formControlName="streetAddress">
+                <div *ngIf="checkoutForm?.get('streetAddress')?.invalid && (checkoutForm?.get('streetAddress')?.dirty || checkoutForm?.get('streetAddress')?.touched)" class="invalid-feedback">
+                  <div *ngIf="checkoutForm?.get('streetAddress')?.hasError('required')">Street Address is required</div>
+                  <div *ngIf="checkoutForm?.get('streetAddress')?.hasError('pattern')">Please enter a valid Address (letters and numbers only)</div>
+                </div>
+              </div>
+              <!-- City and Postal Code -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="city" class="form-label">City</label>
+                  <input type="text" class="form-control" id="city" placeholder="Enter your city" formControlName="city">
+                  <div *ngIf="checkoutForm?.get('city')?.invalid && (checkoutForm?.get('city')?.dirty || checkoutForm?.get('city')?.touched)" class="invalid-feedback">
+                    <div *ngIf="checkoutForm?.get('city')?.hasError('required')">City is required</div>
+                  <div *ngIf="checkoutForm?.get('city')?.hasError('pattern')">Please enter a valid city (characters only min 3 characters)</div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="postalCode" class="form-label">Postal Code</label>
+                  <input type="text" class="form-control" id="postalCode" placeholder="Enter your postal code" formControlName="postalCode">
+                  <div *ngIf="checkoutForm?.get('postalCode')?.invalid && (checkoutForm?.get('postalCode')?.dirty || checkoutForm?.get('postalCode')?.touched)" class="invalid-feedback">
+                    <div *ngIf="checkoutForm?.get('postalCode')?.hasError('required')">Postal Code is required</div>
+                    <div *ngIf="checkoutForm?.get('postalCode')?.hasError('pattern')">Please enter a valid postal code (5 digits)</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Country -->
+              <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <select class="form-select" id="country" formControlName="country">
+                  <option value="">Select your country</option>
+                  <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                </select>
+                <div *ngIf="checkoutForm?.get('country')?.invalid && (checkoutForm?.get('country')?.dirty || checkoutForm?.get('country')?.touched)" class="invalid-feedback">Country is required</div>
+              </div>
+
+              <!-- Payment Method Selection -->
+              <div class="row mb-3">
+                <div class="col">
+                  <p>Please select a payment Method</p>
+                  <input type="radio" id="cash" name="paymentMethod" formControlName="paymentMethod" value="cash"><label for="cash">Cash on Delivery</label><br>
+                  <input type="radio" id="card" name="paymentMethod" formControlName="paymentMethod" value="card"><label for="card">Credit Card</label><br>
+                  <div *ngIf="checkoutForm?.get('paymentMethod')?.invalid && (checkoutForm?.get('paymentMethod')?.dirty || checkoutForm?.get('paymentMethod')?.touched)" class="invalid-feedback">Payment Method is required</div>
+                </div>
+              </div>
+
+              <!-- Error Message Display -->
+              <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+              <!-- Proceed to payment button -->
+              <button type="submit" class="btn btn-primary" [disabled] = "!checkoutForm.valid">Place Order</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Order Summary</h4>
+            <!-- Display cart items -->
+            <div *ngFor="let item of cartItems" class="cart-item">
+              <div class="row">
+                <div class="col-4">
+                  <img  src="assets/images/products/{{ item.productId.imageCover}}" alt="{{ item.productId.title }}" class="img-fluid">
+                </div>
+                <div class="col-8">
+                  <p><strong>{{ item.productId.title }}</strong></p>
+                  <p>Quantity: {{ item.quantity }}</p>
+                  <p>Price: ${{ item.productId.price }}</p>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <!-- Total amount -->
+            <p>Total: ${{ total }}</p>
+            <!-- Additional summary details -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

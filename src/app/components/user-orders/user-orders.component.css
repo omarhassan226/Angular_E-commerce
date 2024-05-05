@@ -1,0 +1,41 @@
+.view{
+  background: #ffcb78;
+}
+/* Custom styles for the table */
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+/* Custom styles for buttons */
+.btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
+
+/* Slide animation */
+.slide-right {
+    animation: slideRight 0.5s ease-in-out;
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+/* Custom styles for buttons */
+.btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    margin-right: 5px; /* Add margin-right to create space between buttons */
+}
+

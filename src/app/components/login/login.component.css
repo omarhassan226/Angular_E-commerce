@@ -1,0 +1,10 @@
+.card h5 {
+  width: 500px;
+  font-size: 25px;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.error {
+  color: red;
+}
